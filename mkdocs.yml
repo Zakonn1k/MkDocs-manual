@@ -1,12 +1,16 @@
-site_name: MkDocs Manual
+site_name: Support Vadim Manual
 site_url: https://Zakonn1k.github.io/MkDocs-manual/
 theme:
   name: material
 
-site_author: Zakonn1k
-copyright: Zakonn1k, 2025
+site_author: Support Vadim
+copyright: Support Vadim, 2025
 
 markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+
+plugins:
+  - search
+  - blog
