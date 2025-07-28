@@ -1,4 +1,4 @@
-# Установка Proxmox VE on Debian 12
+# Установка Proxmox VE на голый on Debian 12
 
  Шаг 1: Обновление системы
 
