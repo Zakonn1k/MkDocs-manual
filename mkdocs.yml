@@ -1,7 +1,12 @@
 site_name: Support Vadim Manual
 site_url: https://Zakonn1k.github.io/MkDocs-manual/
 theme:
+  language: ru
   name: material
+  features:
+    - content.code.copy
+    - content.code.select
+    - navigation.instant
 
 site_author: Support Vadim
 copyright: Support Vadim, 2025
@@ -10,7 +15,25 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - toc:
+      permalink: true
+      title: On this page
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.critic:
+      mode: view
 
 plugins:
   - search
   - blog
+  - glightbox
