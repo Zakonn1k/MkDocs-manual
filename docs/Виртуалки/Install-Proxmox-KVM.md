@@ -21,6 +21,13 @@
     qemu-system-x86_64 -enable-kvm -m 8192 -smp 4 -k en-us -boot d -cdrom ./pve.iso -drive file=/dev/nvme0n1,format=raw,media=disk,if=virtio -drive file=/dev/nvme1n1,format=raw,media=disk,if=virtio -vnc :0 -bios /usr/share/OVMF/OVMF_CODE.fd 
 
 ???- info "Расшифровка команды"
+    Для корректной работы нужны пакеты
+    ``` bash
+    sudo apt update
+    sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager ovmf
+
+    ```
+
     Запускает эмулятор QEMU для архитектуры x86_64 (64-битные системы Intel/AMD).
 
     🔧 Основной исполняемый файл

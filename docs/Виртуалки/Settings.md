@@ -5,7 +5,7 @@
 
 * Для IPv4 и IPv6
 !!! abstract "Команда"
-    ``` bash
+    ``` linux-config
     sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
     sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf
     ```
@@ -55,7 +55,7 @@
 IPv6:2001:DB8::/64
 
 ???+ abstract "Конфиг"
-    ``` bash
+    ```kconfig
     # /etc/network/interfaces
 
     auto lo
