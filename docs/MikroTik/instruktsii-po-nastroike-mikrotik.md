@@ -4,12 +4,12 @@
 
 ## Инструкция настройки WiFi в MikroTik
 
-1. **[Настройка пароля WiFi](#Nastroyka parolya-WiFi-v-MikroTik)**
-2. **[Расширенная настройка WiFi в MikroTik](#Rasshirennaya-nastroyka-WiFi-v-MikroTik)**
-   * **[Настройка WiFi 2.4ГГц](#Nastroyka-WiFi-2G)**
-   * **[Настройка WiFi 5ГГц](#Nastroyka-WiFi-5G)**
-3. **[Настройка скорости и мощности WiFi](#Nastroyka-skorosti-i-moschnosti-WiFi-v-MikroTik)**
-4. **[Тестирование скорости Speedtest](#Testirovanie-skorosti-MikroTik-WiFi)**
+1. **[Настройка пароля WiFi](#wifi-mikrotik_1)**
+2. **[Расширенная настройка WiFi в MikroTik](#wifi-mikrotik_3)**
+   * **[Настройка WiFi 2.4ГГц](#mikrotik-wifi-2g)**
+   * **[Настройка WiFi 5ГГц](#mikrotik-wifi-5g)**
+3. **[Настройка скорости и мощности WiFi](#wifi-mikrotik_4)**
+4. **[Тестирование скорости Speedtest](#mikrotik-wifi)**
 
 ## Отличие настройки CAPsMAN на точке доступа MikroTik
 
@@ -116,7 +116,7 @@ set [ find default-name=wlan2 ] band=5ghz-a/n/ac channel-width=\
 
 Методы для увеличения скорости WiFi в MikroTik для двух диапазонов 2.4 и 5ГГц очень похожи между собой. Последовательно будет рассмотрена настройка максимальной скорости WiFi в MikroTik для каждого частотного диапазона — 2.4 и 5ГГц.
 
-Если WiFi работает медленно или не стабильно**, [WiFi Reset Configuration](#Sbrosit-nastroyki-WiFi-v-MikroTik)** **→**
+Если WiFi работает медленно или не стабильно**, WiFi Reset Configuration.
 
 > ### Настройка для MikroTik WiFi на 2.4ГГц
 
