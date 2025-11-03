@@ -1,7 +1,5 @@
 # Инструкции по настройке MikroTik
 
-Статья по настройке WiFi **2.4** и **5ГГц** на **[роутере MikroTik](https://настройка-микротик.укр/kategoriya-ustroystva/router/)** или **[точке доступа WiFi](https://настройка-микротик.укр/kategoriya-ustroystva/tochki-dostupa-wifi/)**. Варианты усиления мощности и увеличения скорости WiFi.
-
 ## Инструкция настройки WiFi в MikroTik
 
 1. **[Настройка пароля WiFi](#wifi-mikrotik_1)**
@@ -13,7 +11,7 @@
 
 ## Отличие настройки CAPsMAN на точке доступа MikroTik
 
-[**CAPsMAN**](https://настройка-микротик.укр/usluga-nastrojki-wifi-na-mikrotik-capsman/) это менеджер, который выполняет роль **WiFi контроллера**. Его прямая задача облегчить масштабируемость WiFi сети и актуальность возникает, когда в сети **MikroTik** появляется вторая точка доступа WiFi. Среди полезных функций можно отметить наличие **Fast Rouming**, которая обеспечивает быстрое переключение между точками доступа при перемещении WiFi клиента по зоне покрытия.
+**CAPsMAN** это менеджер, который выполняет роль **WiFi контроллера**. Его прямая задача облегчить масштабируемость WiFi сети и актуальность возникает, когда в сети **MikroTik** появляется вторая точка доступа WiFi. Среди полезных функций можно отметить наличие **Fast Rouming**, которая обеспечивает быстрое переключение между точками доступа при перемещении WiFi клиента по зоне покрытия.
 
 ![](img/usluga-nastrojki-wifi-na-mikrotik-capsman-edinaya-wifi-set.png)
 
@@ -188,7 +186,7 @@ set [ find default-name=wlan2 ] band=5ghz-a/n/ac channel-width=\
 
 ![Настройка WiFi в MikroTik, Speedtest.net](img/nastrojka-wifi-v-mikrotik-speedtest.net_.png "Как проверить скорость по WiFi в MikroTik через Speedtest")](https://www.speedtest.net/ru)
 
-Тест скорости на сайте **[Speedtest.net](https://www.speedtest.net/ru)** для настроенной WiFi точки доступа **[MikroTik cAP ac](https://настройка-микротик.укр/katalog-ustrojstv/obzor-mikrotik-cap-ac-rbcapgi-5acd2nd/)**:
+Тест скорости на сайте **[Speedtest.net](https://www.speedtest.net/ru)** для настроенной WiFi точки доступа **MikroTik cAP ac**:
 
 > ### Скорость WiFi на 2.4ГГц
 
