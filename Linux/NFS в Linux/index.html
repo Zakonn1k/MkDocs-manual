@@ -1,0 +1,1569 @@
+<!DOCTYPE html><html lang="ru" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Support Vadim">
+      
+      
+        <link rel="canonical" href="https://Zakonn1k.github.io/MkDocs-manual/Linux/NFS%20%D0%B2%20Linux/">
+      
+      
+        <link rel="prev" href="../../Cisco/firmware/">
+      
+      
+        <link rel="next" href="../access-rights/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>NFS в Linux - Support Vadim Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nfs-linux" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="Support Vadim Manual" class="md-header__button md-logo" aria-label="Support Vadim Manual" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Support Vadim Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NFS в Linux
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to system preference" type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Support Vadim Manual" class="md-nav__button md-logo" aria-label="Support Vadim Manual" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    Support Vadim Manual
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome to Support Vadim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cisco
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cisco
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cisco/firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Прошивка Cisco Catalyst 3850
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFS в Linux
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFS в Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nfs-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Установка и настройка NFS-сервера
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfs-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Установка и настройка NFS-клиента
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Установка и настройка NFS-клиента">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfs-fstab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Постоянное монтирование NFS при помощи fstab
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Постоянное монтирование NFS при помощи systemd
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../access-rights/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Добавления ключа SSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка Debian 12.10.0 (Netinst, XFCE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kak-ustanovit-aktualnye-versii-docker-i-docker-compose-na-ubuntu-i-debian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Как установить актуальные версии Docker и Docker Compose на Ubuntu и Debian
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prometheus-grafana/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка и настройка Prometheus и Grafana (Docker)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MikroTik
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MikroTik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MikroTik/instruktsii-po-nastroike-mikrotik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Инструкции по настройке MikroTik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MikroTik/mikrotik-capsman-nastroika-capsman-v-mikrotik-routeros-713-i-vyshe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Настройка CAPsMAN в Mikrotik RouterOS 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SQL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/2389984/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Как установить SQL Server 2019 для работы с 1С
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/bazy-dannykh-neskolko-shagov-do-sereznogo-obsluzhivaniia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Обслуживания базы данных
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/rezervnoe-kopirovanie-i-vosstanovlenie-bazy-dannykh-v-ms-sql-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Резервное копирование и восстановление базы данных в MS SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/sell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Page 2 test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3">
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Архив
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Архив
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2023
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Виртуалки
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Виртуалки
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%D0%92%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D0%BA%D0%B8/Install-Proxmox-KVM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Устнавка образа Proxmox VE на rescue system Hetzner с виртуальным KVM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%D0%92%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D0%BA%D0%B8/MikrotikCHR-Proxmox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка Mikrotik CHR на Proxmox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%D0%92%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D0%BA%D0%B8/Proxmox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка Proxmox VE на голый on Debian 12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%D0%92%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D0%BA%D0%B8/Settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Настройка сети Proxmox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nfs-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Установка и настройка NFS-сервера
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfs-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Установка и настройка NFS-клиента
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Установка и настройка NFS-клиента">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfs-fstab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Постоянное монтирование NFS при помощи fstab
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Постоянное монтирование NFS при помощи systemd
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="nfs-linux">NFS в Linux<a class="headerlink" href="#nfs-linux" title="Permanent link">¶</a></h1>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/nfs-debian-ubuntu-000.png" data-desc-position="bottom"><img alt="nfs-debian-ubuntu-000.png" src="../img/nfs-debian-ubuntu-000.png"></a></p>
+<p>NFS (Network File System) - сетевая файловая система в Linux и UNIX-like системах позволяющая монтировать сетевые ресурсы удаленного компьютера и работать с ними как с локальными. Это стандартный и достаточно производительный способ работы с файлами по сети, использование которого более предпочтительно для обмена данными в однородной Linux среде, особенно в тех случаях, когда требуется постоянный доступ к ресурсам. В этой статье мы рассмотрим, как настроить собственный сервер NFS на базе Debian или Ubuntu, а также как получить к нему доступ из удаленных систем.</p>
+<p>Как и любой протокол с большой историей NFS имеет несколько версий, актуальной версией на сегодняшний день является NFS v4 и следует использовать именно ее, в некоторых случаях, обычно в целях совместимости можно использовать версию NFS v3, более ранние версии являются устаревшими и к применению категорически не рекомендуются.</p>
+<p>Пользователям пришедшим из Windows систем концепция NFS может показаться несколько непонятной, так как они привыкли, что общий ресурс - это сетевое расположение, доступное на удаленном ПК - файловом сервере и доступ к нему можно получить сразу через сетевое окружение, ну или подключить в виде сетевого диска.</p>
+<p>В Linux все немного по-другому, файловая система здесь иерархична и начинается всегда от корня, поэтому любые данные, вне зависимости, где они находятся, на внутренних носителях или в локальной сети должны быть подключены к этой иерархии, место такого подключения называется точкой монтирования, после чего вы сможете работать с этими данными точно также как и с локальными, никакой разницы для системы нет.</p>
+<p>Поэтому NFS - это не файловый сервер, а именно сетевая файловая система, хотя и построена по клиент-серверной схеме.</p>
+<h3 id="nfs-">Установка и настройка NFS-сервера<a class="headerlink" href="#nfs-" title="Permanent link">¶</a></h3>
+<p>Прежде всего продумаем структуру данных, NFS v4 требует, чтобы все экспортируемые директории находились в пределах одной общей директории, называемой корневой. На первый взгляд все просто, создаем корень NFS, скажем в <strong>/mnt</strong>, и добавляем туда несколько экспортируемых папок:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mkdir /mnt/nfs  
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>mkdir /mnt/nfs/adm  
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>mkdir /mnt/nfs/doc
+</span></code></pre></div>
+<p>В целях безопасности NFS умеет понижать права подключившихся пользователей до <strong>nobody:nogroup</strong> и это хорошая практика для общих ресурсов, рекомендуем ее использовать. Поэтому сразу сменим владельца директории:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>chown -R nobody:nogroup /mnt/nfs
+</span></code></pre></div>
+<p>Важный момент - в экспортируемых расположениях не должно быть символических ссылок, либо они также должны быть доступны на клиенте, в противном случае они не будут работать. Поэтому если нам надо экспортировать директорию, лежащую за пределами корня NFS, то нам потребуется ее смонтировать.</p>
+<p>Например, мы хотим поделиться по сети директорией <strong>/home/ivanoff/music</strong>, для этого создадим точку монтирования:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mkdir /mnt/nfs/music
+</span></code></pre></div>
+<p>А затем добавим в <strong>/etc/fstab</strong> запись:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/home/ivanoff/music  /mnt/nfs/music  none  bind  0  0
+</span></code></pre></div>
+<p>Теперь каталог с музыкой будет автоматически монтироваться в расположение NFS при загрузке системы, чтобы выполнить монтирование без перезагрузки выполните:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mount -a
+</span></code></pre></div>
+<p>После того, как вы создали необходимую структуру хранения данных установим сам NFS-сервер:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>apt install nfs-kernel-server
+</span></code></pre></div>
+<p>Все экспортируемые файловые системы должны быть описаны в <strong>/etc/exports</strong>, начнем с корневой, добавим строку:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/mnt/nfs 192.168.233.0/24(rw,sync,crossmnt,fsid=0,no_subtree_check,wdelay,all_squash)
+</span></code></pre></div>
+<p>Давайте разберем ее подробнее:</p>
+<ul>
+<li><strong>/mnt/nfs</strong> - путь к экспортируемым данным</li>
+<li><strong>192.168.233.0/24</strong> - адрес, которому разрешается доступ, можно указать <strong>*</strong> - всем, сеть или отдельный адрес или имя хоста</li>
+</ul>
+<p>Далее в скобках идут опции, которые относятся к указанному адресу, обратите внимание, что <strong>пробела</strong> между адресом и скобкой <strong>быть не должно</strong>.</p>
+<ul>
+<li><strong>rw</strong> - разрешаем запись в экспортируемую директорию</li>
+<li><strong>sync</strong> - сообщать клиенту об успешной записи, только после фактической записи на диск, несколько замедляет работу, но предотвращает возможную потерю данных</li>
+<li><strong>crossmnt</strong> - автоматически монтировать вместе с корневой файловой системой все вложенные</li>
+<li><strong>fsid=0</strong> - признак корневой файловой системы</li>
+<li><strong>no_subtree_check</strong> - если экспортируется подкаталог, то система будет проверять находится ли запрошенный файл в экспортированном подкаталоге, отключение проверки несколько снижает безопасность, но увеличивает производительность</li>
+<li><strong>wdelay</strong> - позволяет серверу откладывать запись, если он предполагает, что планируется еще одна операция записи, чтобы потом записывать данные большими блоками. Увеличивает производительность при большой глубине очереди</li>
+<li><strong>all_squash</strong> - понижать права всех пользователей до <strong>nobody:nogroup</strong></li>
+</ul>
+<p>На последней опции остановимся более подробно, NFS по умолчанию не использует аутентификацию и доступ разграничивается по IP-адресам и стандартным UNIX-правам. При этом важно понимать, что права определяются не по имени пользователя, а по его UID/GID, т.е. идентификаторам. В целях безопасности NFS умеет понижать права до минимальных, но по умолчанию это применяется только к суперпользователю, а обычные пользователи будут подключаться со своими UID/GID, но так как мы назначили владельцем экспортируемых директорий <strong>nobody:nogroup</strong>, то нам нужно также понизить в правах и обычных пользователей, либо пересмотреть всю систему прав доступа.</p>
+<p>Отдельно бы хотелось предостеречь от использования опции <strong>no_root_squash</strong>, которая отключает понижение прав root при подключении к NFS, это очень большая дыра в безопасности, так как позволяет пользователю с <strong>локальными</strong> правами администратора залить на сервер исполняемый файл с установленным битом SUID, что будет означать смену прав на суперпользователя при его запуске из-под обычной учетной записи.</p>
+<p>Затем подключим остальные экспортируемые директории:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/mnt/nfs/doc 192.168.233.0/24(rw,sync,no_subtree_check,wdelay,all_squash)  
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/mnt/nfs/adm 192.168.233.0/24(rw,sync,no_subtree_check,wdelay,all_squash)
+</span></code></pre></div>
+<p>Здесь все стандартно: путь, адрес и опции для этого адреса.</p>
+<p>А как быть, если надо подключить разные адреса с разным набором опций? Просто добавьте в строку нужное количество адресов и укажите нужные вам опции:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/mnt/nfs/adm 192.168.233.101(...) 192.168.233.102(...)
+</span></code></pre></div>
+<p>Осталось разобраться с последним экспортируемым ресурсом, который мы примонтировали из домашней папки пользователя. Понятно, что владельцем файлов в ней является сам пользователь и попытки обратиться туда с минимальными правами не увенчаются успехом. Поэтому немного изменим строку экспорта:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/mnt/nfs/music 192.168.233.0/24(rw,sync,no_subtree_check,wdelay,all_squash,anonuid=1001,anongid=1001)
+</span></code></pre></div>
+<p>Здесь у нас добавились две новые опции:</p>
+<ul>
+<li><strong>anonuid</strong> - переопределяет идентификатор анонимного пользователя</li>
+<li><strong>anongid</strong> - переопределяет группу анонимного пользователя</li>
+</ul>
+<p>Обе этих опции работают совместно с <strong>all_squash</strong> и предполагается что 1001 - это UID/GID пользователя <strong>ivanoff</strong>, из домашней директории которого мы примонтировали этот ресурс.</p>
+<p>После того как вы добавили в файл все экспортируемые ресурсы, выполните команду:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>exportfs -ra
+</span></code></pre></div>
+<p>Перезапустить или проверить статус службы вы можете командами:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>systemctl restart|status nfs-server
+</span></code></pre></div>
+<p>После чего полезно посмотреть полный набор используемых опций для каждого экспортируемого ресурса, для чего выполните:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cat /var/lib/nfs/etab
+</span></code></pre></div>
+<p>Как видим, набор опций в выводе гораздо шире указанных нами, так как тут также перечислены опции применяемые по умолчанию.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/nfs-debian-ubuntu-001-thumb-600xauto-17749.png" data-desc-position="bottom"><img alt="nfs-debian-ubuntu-001.png" src="../img/nfs-debian-ubuntu-001-thumb-600xauto-17749.png"></a></p>
+<p>На этом настройка NFS сервера закончена. Для работы сервера в версии NFS v4 необходимо разрешить доступ к порту <strong>2049</strong> по TCP и UDP.</p>
+<h3 id="nfs-_1">Установка и настройка NFS-клиента<a class="headerlink" href="#nfs-_1" title="Permanent link">¶</a></h3>
+<p>Для работы с NFS в качестве клиента нам потребуется установить пакет <strong>nfs-common</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>apt install nfs-common
+</span></code></pre></div>
+<p>Никакой дополнительной настройки пакет не требует.</p>
+<p>Теперь попробуем выполнить подключение, сначала в ручном режиме. Прежде всего создадим точки монтирования, куда будет подключаться сетевая файловая система. Например:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>mkdir /mnt/adm
+</span></code></pre></div>
+<p>После чего смонтируем в нее одноименный экспортируемый ресурс:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>mount -t nfs4 192.168.233.184:/adm /mnt/adm
+</span></code></pre></div>
+<p>В команде монтирования для указания нужного ресурса используется синтаксис <strong>server:/export</strong>, пути к экспортируемым ресурсам указываются относительно корневой директории NFS-сервера. В нашем случае сервер представлен IP-адресом <strong>192.168.233.184</strong>, а экспортируем мы ресурс <strong>/mnt/nfs/adm</strong>.</p>
+<p>Если все сделано правильно, то можете открыть указанную точку монтирования и убедиться, что в ней присутствует содержимое сетевой файловой системы.</p>
+<p>[<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/nfs-debian-ubuntu-002-thumb-600xauto-17752.png" data-desc-position="bottom"><img alt="nfs-debian-ubuntu-002.png" src="../img/nfs-debian-ubuntu-002-thumb-600xauto-17752.png"></a>]</p>
+<p>Также проверить монтирование и получить полную информацию о примонтированных NFS-ресурсах можно командой:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>mount -t nfs4
+</span></code></pre></div>
+<p>Для того, чтобы отмонтировать ресурс используйте команду:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>umount /mnt/adm
+</span></code></pre></div>
+<p>В качестве аргумента укажите точку монтирования.</p>
+<h4 id="nfs-fstab">Постоянное монтирование NFS при помощи fstab<a class="headerlink" href="#nfs-fstab" title="Permanent link">¶</a></h4>
+<p>Самый простой, но не самый удобный и, по сегодняшним меркам, несколько устаревший способ. Откройте файл <strong>/etc/fstab</strong> и добавьте в него строку:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>192.168.233.184:/adm /mnt/adm nfs4 defaults 0 0
+</span></code></pre></div>
+<p>Теперь сетевая файловая система будет автоматически монтироваться при загрузке компьютера. Чтобы выполнить монтирование без перезагрузки используйте:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>mount -a
+</span></code></pre></div>
+<p>К недостаткам данного способа относится то, что в случае плохого канала связи с NFS-сервером может наблюдаться значительная задержка при загрузке системы, однако если сервер полностью недоступен монтирование производиться не будет.</p>
+<h4 id="nfs-systemd">Постоянное монтирование NFS при помощи systemd<a class="headerlink" href="#nfs-systemd" title="Permanent link">¶</a></h4>
+<p>Для монтирования при помощи systemd используются специальные юниты, имя которых должно отображать физический путь к ним, чтобы сформировать имя на основании пути используйте команду:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>systemd-escape -p "/mnt/adm"
+</span></code></pre></div>
+<p>Для указанного пути в выводе получим имя <strong>mnt-adm</strong>, после чего создадим юнит монтирования и откроем его редактором nano, если вы предпочитаете редактор mc, то замените в команде nano на mcedit:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>nano /etc/systemd/system/mnt-adm.mount
+</span></code></pre></div>
+<p>И внесем в него следующий текст:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>[Unit]  
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>Description=NFS ADM  
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>[Mount]  
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>What=192.168.233.184:/adm  
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>Where=/mnt/adm  
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>Type=nfs4  
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>Options=_netdev,auto  
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>TimeoutSec=10  
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>[Install]  
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>WantedBy=multi-user.target
+</span></code></pre></div>
+<p>Здесь все достаточно просто, в опции <strong>What</strong> указываем сетевой ресурс, а в опции <strong>Where</strong> - точку монтирования.</p>
+<p>Затем создадим еще один юнит, для автомонтирования ресурса по требованию, это наиболее удобный вариант и рекомендуется разработчиками для сетевых и съемных ресурсов.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>nano /etc/systemd/system/mnt-adm.automount
+</span></code></pre></div>
+<p>В нем разместим следующие строки:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>[Unit]  
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>Description=Automount NFS ADM  
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>[Automount]  
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>Where=/mnt/adm  
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>TimeoutIdleSec=900  
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>[Install]  
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>WantedBy=multi-user.target
+</span></code></pre></div>
+<p>Теперь перечитаем список юнитов, добавим юнит автомонтирования в автозагрузку и сразу запустим.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>systemctl daemon-reload  
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>systemctl enable --now mnt-adm.automount
+</span></code></pre></div>
+<p>Перезагружать систему не надо, при работающем юните достаточно обратиться к указанной точке монтирования, и сетевая файловая система будет подключена автоматически.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Support Vadim, 2025
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.select", "navigation.instant"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

@@ -1,0 +1,1975 @@
+<!DOCTYPE html><html lang="ru" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Support Vadim">
+      
+      
+        <link rel="canonical" href="https://Zakonn1k.github.io/MkDocs-manual/%D0%92%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D0%BA%D0%B8/Settings/">
+      
+      
+        <link rel="prev" href="../Proxmox/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Настройка сети Proxmox - Support Vadim Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#proxmox" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="Support Vadim Manual" class="md-header__button md-logo" aria-label="Support Vadim Manual" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Support Vadim Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Настройка сети Proxmox
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to system preference" type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Support Vadim Manual" class="md-nav__button md-logo" aria-label="Support Vadim Manual" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+
+    </a>
+    Support Vadim Manual
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome to Support Vadim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cisco
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cisco
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cisco/firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Прошивка Cisco Catalyst 3850
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/NFS%20%D0%B2%20Linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFS в Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/access-rights/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Добавления ключа SSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка Debian 12.10.0 (Netinst, XFCE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/kak-ustanovit-aktualnye-versii-docker-i-docker-compose-na-ubuntu-i-debian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Как установить актуальные версии Docker и Docker Compose на Ubuntu и Debian
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/prometheus-grafana/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка и настройка Prometheus и Grafana (Docker)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MikroTik
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MikroTik
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MikroTik/instruktsii-po-nastroike-mikrotik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Инструкции по настройке MikroTik
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MikroTik/mikrotik-capsman-nastroika-capsman-v-mikrotik-routeros-713-i-vyshe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Настройка CAPsMAN в Mikrotik RouterOS 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SQL
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/2389984/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Как установить SQL Server 2019 для работы с 1С
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/bazy-dannykh-neskolko-shagov-do-sereznogo-obsluzhivaniia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Обслуживания базы данных
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/rezervnoe-kopirovanie-i-vosstanovlenie-bazy-dannykh-v-ms-sql-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Резервное копирование и восстановление базы данных в MS SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/sell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Page 2 test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3">
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Архив
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Архив
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2023
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Виртуалки
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Виртуалки
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Install-Proxmox-KVM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Устнавка образа Proxmox VE на rescue system Hetzner с виртуальным KVM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MikrotikCHR-Proxmox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка Mikrotik CHR на Proxmox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Proxmox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Установка Proxmox VE на голый on Debian 12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Настройка сети Proxmox
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Настройка сети Proxmox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Маршрутизированная настройка
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Маршрутизированная настройка">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хост-система Маршрутизированная
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routed-debian-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Гостевая система Routed (Debian 12)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мостовая установка
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Мостовая установка">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хост-система Мостовая
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bridged-debian-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Гостевая система Bridged (Debian 12)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vswitch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vSwitch с публичной подсетью
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vSwitch с публичной подсетью">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфигурация хост-системы:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфигурация гостевой системы:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hetzner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Облачная сеть Hetzner
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Облачная сеть Hetzner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфигурация хост-системы:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфигурация гостевой системы:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Маскарадинг (NAT)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Маршрутизированная настройка
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Маршрутизированная настройка">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хост-система Маршрутизированная
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routed-debian-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Гостевая система Routed (Debian 12)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Мостовая установка
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Мостовая установка">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Хост-система Мостовая
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bridged-debian-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Гостевая система Bridged (Debian 12)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vswitch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vSwitch с публичной подсетью
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vSwitch с публичной подсетью">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфигурация хост-системы:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфигурация гостевой системы:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hetzner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Облачная сеть Hetzner
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Облачная сеть Hetzner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфигурация хост-системы:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Конфигурация гостевой системы:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Маскарадинг (NAT)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="proxmox">Настройка сети Proxmox<a class="headerlink" href="#proxmox" title="Permanent link">¶</a></h1>
+<p>Включить IP-пересылку на хосте
+При маршрутизации мосты ( vmbr0 например, ) не подключены к физическому интерфейсу. Вам необходимо активировать пересылку IP-пакетов на хост-системе. Обратите внимание, что пересылка пакетов между сетевыми интерфейсами отключена в стандартной установке Hetzner. Чтобы обеспечить постоянную пересылку IP-пакетов после перезагрузки, используйте следующие команды:</p>
+<ul>
+<li>Для IPv4 и IPv6</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Команда</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="s1">'s/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/'</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sysctl</span><span class="o">.</span><span class="n">conf</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="s1">'s/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/'</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">sysctl</span><span class="o">.</span><span class="n">conf</span>
+</span></code></pre></div>
+</div>
+<ul>
+<li>Примените изменения</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Команда</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sysctl<span class="w"> </span>-p
+</span></code></pre></div>
+</div>
+<ul>
+<li>Проверьте, активна ли переадресация</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Команда</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sysctl<span class="w"> </span>net.ipv4.ip_forward
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sysctl<span class="w"> </span>net.ipv6.conf.all.forwarding
+</span></code></pre></div>
+</div>
+<p>Добавьте конфигурацию сети
+Выберите один из вариантов:</p>
+<ul>
+<li>
+<p><a href="#_1">Маршрутизированная настройка</a></p>
+</li>
+<li>
+<p><a href="#_2">Мостовая установка</a></p>
+</li>
+<li>
+<p><a href="#vswitch">vSwitch</a> с публичной подсетью
+» Назначьте IP-адреса виртуальным машинам/контейнерам из vSwitch с публичной подсетью.</p>
+</li>
+<li>
+<p><a href="#hetzner">Hetzner Cloud Network</a>
+» Установите соединение между виртуальными машинами/LXC в Proxmox.</p>
+</li>
+<li>
+<p><a href="#nat">Маскарадинг (NAT)</a>
+» Разрешить виртуальным машинам с частными IP-адресами иметь доступ к Интернету через публичный IP-адрес хоста.</p>
+</li>
+</ul>
+<h2 id="_1">Маршрутизированная настройка<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+<p>В конфигурации с маршрутизацией IP-адрес моста хост-системы по умолчанию служит шлюзом, и требуется ручное добавление маршрута к виртуальной машине, если дополнительный IP-адрес не принадлежит к той же подсети. Поэтому мы установим маску /32, поскольку такие устройства, как vmbr0, по своей природе маршрутизируют трафик только для IP-адресов, находящихся в той же подсети. Благодаря /32маске каждый дополнительный IP-адрес рассматривается как отдельный уникальный сетевой объект, что гарантирует достижение трафиком правильного пункта назначения, даже если дополнительный IP-адрес не принадлежит к той же подсети.</p>
+<h3 id="-">Хост-система Маршрутизированная<a class="headerlink" href="#-" title="Permanent link">¶</a></h3>
+<p>Мы будем использовать следующие примеры адресов для представления реального сценария использования:</p>
+<p>Основной IP-адрес:198.51.100.10/24
+Шлюз основного IP:198.51.100.1/24
+Дополнительная подсеть:203.0.113.0/24
+Дополнительный одиночный IP (внешняя подсеть):192.0.2.20/24
+Дополнительный одиночный IP (в той же подсети):198.51.100.30/24
+IPv6:2001:DB8::/64</p>
+<details class="abstract" open="open">
+<summary>Конфиг</summary>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>auto<span class="w"> </span>lo
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet6<span class="w"> </span>loopback
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>auto<span class="w"> </span>enp0s31f6
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>iface<span class="w"> </span>enp0s31f6<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span>address<span class="w"> </span><span class="m">198</span>.51.100.10/32<span class="w">    </span><span class="c1">#Main IP</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span>gateway<span class="w"> </span><span class="m">198</span>.51.100.1<span class="w">        </span><span class="c1">#Gateway</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># IPv6 for the main interface</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>iface<span class="w"> </span>enp0s31f6<span class="w"> </span>inet6<span class="w"> </span>static
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span>address<span class="w"> </span><span class="m">2001</span>:db8::2/128<span class="w">         </span><span class="c1"># /128 on the ethernet interface, /64 on the bridge (to route all other addresses via the bridge)</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span>gateway<span class="w"> </span>fe80::1
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="c1"># Bridge for single IP's (foreign and same subnet)</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>auto<span class="w"> </span>vmbr0
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>iface<span class="w"> </span>vmbr0<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">        </span>address<span class="w"> </span><span class="m">198</span>.51.100.10/32<span class="w">     </span><span class="c1">#Main IP</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">        </span>bridge-ports<span class="w"> </span>none
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span>bridge-stp<span class="w"> </span>off
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">        </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">        </span>up<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.0.2.20/32<span class="w"> </span>dev<span class="w"> </span>vmbr0<span class="w">    </span><span class="c1"># Additional IP from a foreign subnet</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">        </span>up<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">198</span>.51.100.30/32<span class="w"> </span>dev<span class="w"> </span>vmbr0<span class="w"> </span><span class="c1"># Additional IP from the same subnet</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="c1"># IPv6 for the bridge</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>iface<span class="w"> </span>vmbr0<span class="w"> </span>inet6<span class="w"> </span>static
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>address<span class="w"> </span><span class="m">2001</span>:db8::3/64<span class="w">                </span><span class="c1"># Should not be the same address as the main Interface</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="c1"># Additional Subnet 203.0.113.0/24</span>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>auto<span class="w"> </span>vmbr1
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>iface<span class="w"> </span>vmbr1<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="w">        </span>address<span class="w"> </span><span class="m">203</span>.0.113.1/24<span class="w"> </span><span class="c1"># Set one usable IP from the subnet range</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w">        </span>bridge-ports<span class="w"> </span>none
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="w">        </span>bridge-stp<span class="w"> </span>off
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w">        </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+</span></code></pre></div>
+</details>
+<h3 id="routed-debian-12">Гостевая система Routed (Debian 12)<a class="headerlink" href="#routed-debian-12" title="Permanent link">¶</a></h3>
+<p>В качестве шлюза всегда используется IP-адрес моста в хост-системе, т.е. основной IP-адрес для отдельных IP-адресов и IP-адрес из подсети, настроенной в хост-системе, для подсетей.</p>
+<p>Гостевая конфигурация:</p>
+<ul>
+<li>С дополнительным IP из той же подсети:</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Конфиг</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>auto<span class="w"> </span>lo
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>auto<span class="w"> </span>ens18
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>address<span class="w"> </span><span class="m">198</span>.51.100.30/32<span class="w">     </span><span class="c1"># Additional IP</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>gateway<span class="w"> </span><span class="m">198</span>.51.100.10<span class="w">        </span><span class="c1"># Main IP</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1"># IPv6</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet6<span class="w"> </span>static
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>address<span class="w"> </span><span class="m">2001</span>:DB8::4<span class="w">      </span><span class="c1"># IPv6 address of the subnet</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>netmask<span class="w"> </span><span class="m">64</span><span class="w">               </span><span class="c1"># /64</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>gateway<span class="w"> </span><span class="m">2001</span>:DB8::3<span class="w">      </span><span class="c1"># Bridge Address</span>
+</span></code></pre></div>
+</div>
+<ul>
+<li>С иностранным дополнительным IP:</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Конфиг</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>auto<span class="w"> </span>lo
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>auto<span class="w"> </span>ens18
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>address<span class="w"> </span><span class="m">192</span>.0.2.20/32<span class="w">        </span><span class="c1"># Additional IP from a foreign subnet</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>gateway<span class="w"> </span><span class="m">198</span>.51.100.10<span class="w">        </span><span class="c1"># Main IP </span>
+</span></code></pre></div>
+</div>
+<ul>
+<li>С IP-адресом, назначенным из дополнительной подсети</li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">Конфиг</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>auto<span class="w"> </span>lo
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>auto<span class="w"> </span>ens18
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>address<span class="w"> </span><span class="m">203</span>.0.113.10/24<span class="w">      </span><span class="c1"># Subnet IP</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>gateway<span class="w"> </span><span class="m">203</span>.0.113.1<span class="w">          </span><span class="c1"># Gateway is the IP of the bridge (vmbr1) </span>
+</span></code></pre></div>
+</div>
+<h2 id="_2">Мостовая установка<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>При настройке Proxmox в режиме моста крайне важно запрашивать виртуальные MAC-адреса для каждого IP-адреса через Robot Panel. В этом режиме хост действует как прозрачный мост и не участвует в маршрутизации. Это означает, что пакеты, поступающие на маршрутизатор, будут иметь исходный MAC-адрес виртуальных машин. Если исходный MAC-адрес не распознан маршрутизатором, трафик будет помечен как «Abuse» (ошибка), что может привести к блокировке сервера. Поэтому необходимо запрашивать виртуальные MAC-адреса через Robot Panel.</p>
+<h3 id="-_1">Хост-система Мостовая<a class="headerlink" href="#-_1" title="Permanent link">¶</a></h3>
+<p>Здесь мы настраиваем только основной IP-адрес сервера. Дополнительные IP-адреса будут настроены в гостевых системах.</p>
+<div class="language-text highlight"><pre><span></span><code>``` bash
+# /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+
+auto enp0s31f6
+iface enp0s31f6 inet manual
+
+auto vmbr0
+iface vmbr0 inet static
+        address 198.51.100.10/32    # Main IP
+        gateway 198.51.100.1        # Gateway
+        bridge-ports enp0s31f6
+        bridge-stp off
+        bridge-fd 0
+```
+</code></pre></div>
+<h3 id="bridged-debian-12">Гостевая система Bridged (Debian 12)<a class="headerlink" href="#bridged-debian-12" title="Permanent link">¶</a></h3>
+<p>Здесь мы используем шлюз дополнительного IP-адреса или, если дополнительный IP-адрес находится в той же подсети, что и основной IP-адрес, мы используем шлюз основного IP-адреса.</p>
+<p>Статическая конфигурация:</p>
+<div class="language-text highlight"><pre><span></span><code>``` bash
+# /etc/network/interfaces
+
+auto ens18
+iface ens18 inet static
+address 192.0.2.20/32         # Additional IP 
+gateway 192.0.2.1             # Additional Gateway IP
+```
+</code></pre></div>
+<p>В режиме моста DHCP также может использоваться для автоматической настройки сетевых параметров. Однако необходимо настроить виртуальную машину на использование виртуального MAC-адреса, полученного от Robot Panel для конкретной конфигурации IP.</p>
+<figure>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image/image.png" data-desc-position="bottom"><img alt="alt text" src="../image/image.png"></a>
+<br>
+<figcaption>Веб интерфейс Proxmox</figcaption>
+</figure>
+<p>Вы также можете настроить это вручную в самой виртуальной машине, в /etc/network/interfaces:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">    </span><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span>auto<span class="w"> </span>lo
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span>auto<span class="w"> </span>ens18
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span>iface<span class="w"> </span>ens18<span class="w"> </span>inet<span class="w"> </span>dhcp
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">            </span>hwaddress<span class="w"> </span>ether<span class="w"> </span>aa:bb:cc:dd:ee:ff<span class="w"> </span><span class="c1"># The MAC address is just an example</span>
+</span></code></pre></div>
+<p>То же самое можно сделать для контейнеров LXC через графический интерфейс Proxmox. Просто нажмите на контейнер, перейдите в раздел «Сеть», а затем нажмите на мост. Выберите DHCP и добавьте правильный MAC-адрес из панели робота (в нашем случае это будет пример aa:bb:cc:dd:ee:ff):</p>
+<figure>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image/2.png" data-desc-position="bottom"><img alt="alt text" src="../image/2.png"></a>
+<br>
+<figcaption>Веб интерфейс Proxmox</figcaption>
+</figure>
+<h2 id="vswitch">vSwitch с публичной подсетью<a class="headerlink" href="#vswitch" title="Permanent link">¶</a></h2>
+<p>Proxmox также можно настроить для прямого подключения к виртуальному коммутатору Hetzner vSwitch, который управляет маршрутизацией для публичной подсети, позволяя назначать IP-адреса из этой подсети непосредственно виртуальным машинам и контейнерам. Настройка должна быть мостовой, и для того, чтобы пакеты могли достичь виртуального коммутатора, необходимо создать виртуальный интерфейс. Мост не обязан поддерживать VLAN, и настройка VLAN внутри виртуальной машины или контейнеров LXC не требуется. Тегирование выполняется подынтерфейсом, в нашем примере <mark>enp0s31f6.4009</mark>. Каждый пакет, проходящий через интерфейс, будет помечен соответствующим идентификатором VLAN. (Обратите внимание, что эта конфигурация предназначена для LXC/виртуальных машин. Если вы хотите, чтобы сам хост мог взаимодействовать с виртуальным коммутатором, вам потребуется создать дополнительную таблицу маршрутизации .) В данном случае мы будем использовать <mark>203.0.113.0/24</mark> в качестве <ins class="critic">примера</ins> подсеть .</p>
+<h3 id="-_2">Конфигурация хост-системы:<a class="headerlink" href="#-_2" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>auto<span class="w"> </span>enp0s31f6.4009
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>iface<span class="w"> </span>enp0s31f6.4009<span class="w"> </span>inet<span class="w"> </span>manual
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>auto<span class="w"> </span>vmbr4009
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>iface<span class="w"> </span>vmbr4009<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span>bridge-ports<span class="w"> </span>enp0s31f6.4009
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span>bridge-stp<span class="w"> </span>off
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span>mtu<span class="w"> </span><span class="m">1400</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="c1">#vSwitch Subnet 203.0.113.0/24</span>
+</span></code></pre></div>
+<h3 id="_3">Конфигурация гостевой системы:<a class="headerlink" href="#_3" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>auto<span class="w"> </span>lo
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>auto<span class="w"> </span>ens18
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">  </span>address<span class="w"> </span><span class="m">203</span>.0.113.2/24<span class="w">      </span><span class="c1"># Subnet IP from the vSwitch</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span>gateway<span class="w"> </span><span class="m">203</span>.0.113.1<span class="w">         </span><span class="c1"># vSwitch Gateway</span>
+</span></code></pre></div>
+<h2 id="hetzner">Облачная сеть Hetzner<a class="headerlink" href="#hetzner" title="Permanent link">¶</a></h2>
+<p>Также можно установить соединение между виртуальными машинами/LXC в Proxmox с помощью облачной сети Hetzner. Для примера предположим, что вы уже настроили облачную сеть и добавили vSwitch со следующей конфигурацией:</p>
+<ul>
+<li><mark>192.168.0.0/16</mark> - Ваша облачная сеть (родительская сеть)</li>
+<li><mark>192.168.0.0/24</mark> - Подсеть облачного сервера</li>
+<li><mark>192.168.1.0/24</mark> - vSwitch (#12345)
+Конфигурация должна выглядеть примерно так:</li>
+</ul>
+<figure>
+  <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image/3.png" data-desc-position="bottom"><img alt="alt text" src="../image/3.png"></a>
+<br>
+<figcaption>Веб интерфейс vSwitch </figcaption>
+</figure>
+<p>Как и в предыдущем примере, сначала мы создадим виртуальный интерфейс и определим идентификатор VLAN. В нашем случае это будет <mark>enp0s31f6.4000</mark>. Нам потребуется добавить маршрут к облачной сети <mark>192.168.0.0/16</mark> через vSwitch. Обратите внимание, что добавление маршрута к сети Hetzner Cloud и назначение IP-адреса из диапазона частной подсети vSwitch мосту необходимо только в том случае, если сам хост Proxmox должен взаимодействовать с сетью Hetzner Cloud.</p>
+<h3 id="-_3">Конфигурация хост-системы:<a class="headerlink" href="#-_3" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>auto<span class="w"> </span>enp0s31f6.4000
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>iface<span class="w"> </span>enp0s31f6.4000<span class="w"> </span>inet<span class="w"> </span>manual
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>auto<span class="w"> </span>vmbr4000
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>iface<span class="w"> </span>vmbr4000<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span>address<span class="w"> </span><span class="m">192</span>.168.1.10/24
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">        </span>bridge-ports<span class="w"> </span>enp0s31f6.4000
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">        </span>bridge-stp<span class="w"> </span>off
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">        </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">        </span>mtu<span class="w"> </span><span class="m">1400</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">        </span>up<span class="w"> </span>ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.168.0.0/16<span class="w"> </span>via<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span>dev<span class="w"> </span>vmbr4000
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="c1">#vSwitch-to-cloud Private Subnet 192.168.1.0/24</span>
+</span></code></pre></div>
+<h3 id="_4">Конфигурация гостевой системы:<a class="headerlink" href="#_4" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>auto<span class="w"> </span>lo
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>auto<span class="w"> </span>ens18
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">  </span>address<span class="w"> </span><span class="m">192</span>.168.1.2/24
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">  </span>gateway<span class="w"> </span><span class="m">192</span>.168.1.1
+</span></code></pre></div>
+<h2 id="nat">Маскарадинг (NAT)<a class="headerlink" href="#nat" title="Permanent link">¶</a></h2>
+<p>Предоставление доступа к виртуальным машинам/контейнерам LXC в Интернет также возможно без настройки/наличия дополнительных публичных IP-адресов. Hetzner использует строгую привязку IP/MAC-адресов, что означает, что при неправильной маршрутизации трафика это может привести к злоупотреблениям и блокировке сервера. Чтобы избежать этой проблемы, мы можем направлять трафик от LXC/виртуальных машин через основной интерфейс хоста. Это гарантирует, что MAC-адрес будет одинаковым для всех сетевых пакетов. Маскарадинг позволяет виртуальным машинам с частными IP-адресами получать доступ в Интернет через публичный IP-адрес хоста для исходящих соединений. Iptables изменяет каждый исходящий пакет данных, создавая видимость исходящего от хоста, а входящие ответы корректируются таким образом, чтобы их можно было направить обратно к исходному отправителю.</p>
+<p></p><div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># /etc/network/interfaces</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>auto<span class="w"> </span>lo
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet6<span class="w"> </span>loopback
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>auto<span class="w"> </span>enp0s31f6
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>iface<span class="w"> </span>enp0s31f6<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">        </span>address<span class="w"> </span><span class="m">198</span>.51.100.10/24
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">        </span>gateway<span class="w"> </span><span class="m">198</span>.51.100.1/24
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">        </span><span class="c1">#post-up iptables -t nat -A PREROUTING -i enp0s31f6 -p tcp -m multiport ! --dports 22,8006 -j DNAT --to 172.16.16.2</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">        </span><span class="c1">#post-down iptables -t nat -D PREROUTING -i enp0s31f6 -p tcp -m multiport ! --dports 22,8006 -j DNAT --to 172.16.16.2</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>auto<span class="w"> </span>vmbr4
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>iface<span class="w"> </span>vmbr4<span class="w"> </span>inet<span class="w"> </span>static
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">        </span>address<span class="w"> </span><span class="m">172</span>.16.16.1/24
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="w">        </span>bridge-ports<span class="w"> </span>none
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="w">        </span>bridge-stp<span class="w"> </span>off
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">        </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="w">        </span>post-up<span class="w">   </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="s1">'172.16.16.0/24'</span><span class="w"> </span>-o<span class="w"> </span>enp0s31f6<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="w">        </span>post-down<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="s1">'172.16.16.0/24'</span><span class="w"> </span>-o<span class="w"> </span>enp0s31f6<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="c1">#NAT/Masq</span>
+</span></code></pre></div>
+Обратите внимание, что эти правила (ниже) не являются обязательными для доступа LXC/виртуальных машин в Интернет. Это правило необязательно и служит для обеспечения внешнего доступа к конкретной виртуальной машине/контейнеру. Оно перенаправляет весь входящий трафик, за исключением портов 22 и 8006 (в данном случае порт 22 исключен, чтобы вы могли подключиться к Proxmox по SSH, а порт 8006 — это порт для веб-интерфейса), на назначенную виртуальную машину в 172.16.16.2пределах подсети. Это распространённый сценарий/настройка для виртуальных машин-маршрутизаторов, таких как pfSense, где весь входящий трафик перенаправляется на виртуальную машину-маршрутизатор и затем маршрутизируется соответствующим образом.<p></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>post-up<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>enp0s31f6<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>multiport<span class="w"> </span>!<span class="w"> </span>--dports<span class="w"> </span><span class="m">22</span>,8006<span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to<span class="w"> </span><span class="m">172</span>.16.16.2
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>post-down<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>enp0s31f6<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>multiport<span class="w"> </span>!<span class="w"> </span>--dports<span class="w"> </span><span class="m">22</span>,8006<span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to<span class="w"> </span><span class="m">172</span>.16.16.2
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Support Vadim, 2025
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.select", "navigation.instant"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
